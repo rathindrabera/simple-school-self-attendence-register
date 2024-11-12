@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>School Attendance Tracker</title>
+  <link rel="manifest" href="manifest.json" />
+  <style>
+    /* Basic Styling */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background-color: #f0f4f8;
+    }
+    .container {
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      font-size: 1.5em;
+      color: #333;
+      margin-bottom: 20px;
+    }
+    .month-navigation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .month-navigation button {
+      padding: 5px 10px;
+      font-size: 1em;
+      cursor: pointer;
+      background: #4CAF50;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+    }
+    .calendar {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 5px;
+      margin-top: 10px;
+    }
+    .weekday-header {
+      font-weight: bold;
+      padding: 10px 0;
+      color: #333;
+      text-align: center;
+    }
+    .day {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+      text-align: center;
+    }
+    .day.attended {
+      background-color: #4CAF50;
+      color: #fff;
+    }
+    .day.sunday {
+      color: red;
+    }
+    .attendance-btn, .export-btn {
+      margin-top: 10px;
+      width: 100%;
+      padding: 10px;
+      font-size: 1em;
+      color: #fff;
+      background-color: #4CAF50;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    footer {
+      text-align: center;
+      padding: 1em;
+      background-color: #f8f8f8;
+      color: #333;
+      font-size: 0.9em;
+    }
+
+    footer a {
+      color: #007bff;
+      text-decoration: none;
+   }
+
+   footer a:hover {
+     text-decoration: underline;
+   }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>School Attendance Tracker</h1>
+    <div id="attendanceLabel"></div>
+    <div class="month-navigation">
+      <button onclick="changeMonth(-1)">Previous</button>
+      <div id="currentMonth"></div>
+      <button onclick="changeMonth(1)">Next</button>
+    </div>
+    <div class="calendar" id="calendar"></div>
+    <button class="attendance-btn" onclick="addAttendance()">Add Attendance for Today</button>
+    <button class="export-btn" onclick="exportToExcel()">Export to Excel</button>
+  </div>
+    <!-- Footer -->
+  <footer style="text-align: center; padding: 1em; background-color: #f8f8f8; position: fixed; bottom: 0; width: 100%;">
+    <p>Developed with ♥️ by <a href="https://github.com/rathindrabera" style="color: #007bff; text-decoration: none;">Rathindra Bera</a></p>
+  </footer>
+  
+  
+  <!-- SheetJS library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js"></script>
+  <script src="app.js"></script>
+  <script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js')
+        .then(registration => {
+          console.log('Service Worker registered with scope:', registration.scope);
+        }).catch(error => {
+          console.log('Service Worker registration failed:', error);
+        });
+    });
+  }
+</script>
+</body>
+</html>
